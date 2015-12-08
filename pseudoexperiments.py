@@ -211,7 +211,7 @@ def main(argv=None):
 
            # Create the 10000 pseudoexperiments, make the measurement and fill distributions
            r=TRandom3()
-           r.SetSeed(10)
+           r.SetSeed(1)
            #Run a loop for generating the pseudoexperiments
            for num in range (0,10000):
               hist.Reset('ICE') 
