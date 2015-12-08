@@ -10,11 +10,11 @@ def doPeakFit(h=None,minToFit=None,maxToFit=None,outputName=None):
     gStyle.SetOptTitle(0)
     gStyle.SetTickLength(0.03)
 
-    #Get the log(E) histogram and change range around the peak
+    #Get the log(E) histogram and change the range around the peak
     hFit = h.Clone()
     hFit.GetXaxis().SetRangeUser(minToFit,maxToFit)     
 
-    #Define the fit function and make the fit to log(E)
+    #Define the fit function and make the fit to log(E) distribution
     gauss = TF1("gauss", "gaus", minToFit, maxToFit)
     gauss.SetLineColor(kBlue)
     gauss.SetLineWidth(3)
@@ -102,22 +102,22 @@ def doPeakFit(h=None,minToFit=None,maxToFit=None,outputName=None):
     caption2.DrawLatex(0.39,0.33,'m_{t} = %3.4f #pm %3.4f GeV'%(mtop,mtopErr))
 
     #CMS labels
-    tlat1 = TLatex()
-    tlat1.SetNDC()
-    tlat1.SetTextFont(60)
-    tlat1.SetTextSize(0.10)
-    tlat1.SetTextAlign(31)
+    label1 = TLatex()
+    label1.SetNDC()
+    label1.SetTextFont(60)
+    label1.SetTextSize(0.10)
+    label1.SetTextAlign(31)
     prelim_text1 = 'CMS'
-    tlat1.DrawLatex(0.25, 0.77, prelim_text1)
-    tlat1 = TLatex()
-    tlat1.SetNDC()
-    tlat1.SetTextFont(42)
-    tlat1.SetTextSize(0.085)
-    tlat1.SetTextAlign(31)
+    label1.DrawLatex(0.25, 0.77, prelim_text1)
+    label2 = TLatex()
+    label2.SetNDC()
+    label2.SetTextFont(42)
+    label2.SetTextSize(0.085)
+    label2.SetTextAlign(31)
     prelim_text2 ='#it{Simulation}'
-    tlat1.DrawLatex(0.30, 0.70, prelim_text2)
+    label2.DrawLatex(0.30, 0.70, prelim_text2)
     prelim_text3 =' 8 TeV'
-    tlat1.DrawLatex(0.90, 0.90, prelim_text3)
+    label2.DrawLatex(0.90, 0.90, prelim_text3)
 
     #Edit the pad for the pull
     p2.cd()
@@ -194,7 +194,7 @@ def main(argv=None):
            print "... processing", filename1
            from os import path
            if not path.isfile(filename1):
-               print "Help, file doesnt exist"
+               print "Help, file doesn't exist"
                exit(-1)
 
            #Get the histograms in the template sample 
@@ -209,7 +209,7 @@ def main(argv=None):
            Ebreco,Ebrr=getPeakValue(h=eblogHisto)
            print Ebreco,Ebrr
 
-           # Create the 10000 pseudoexperiments, make the measurement and fill distributions
+           # Create the 10000 pseudoexperiments, make the measurement and fill distributions. Otherwise you will get the plot of the fit to the MC sample
            r=TRandom3()
            r.SetSeed(1)
            #Run a loop for generating the pseudoexperiments
